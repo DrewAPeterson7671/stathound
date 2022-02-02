@@ -40,8 +40,12 @@ module ScraperHelper
     player_season_table = a.css("tbody")
     rows = player_season_table.css("tr")
     rows.search('.thead').each(&:remove) #THIS WORKED
-    
-    
+    rows[0].at_css("td").try(:text) # Gets player name
+    rows[0].at_css("a").attributes["href"].try(:value) 
+
+    # DONT FORGET LEAGUE AVERAGE HEADER on some pages, but not this one
+
+
     
   end
   
