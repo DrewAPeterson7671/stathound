@@ -35,4 +35,29 @@ module ScraperHelper
     season = target_scrape("basketball-reference.com/leagues/#{league_year}_adj_shooting.html")
   end
 
+  def gather_player_total_of_season
+    # need to deal with a
+    player_season_table = a.css("tbody")
+    rows = player_season_table.css("tr")
+    rows.search('.thead').each(&:remove) #THIS WORKED
+    
+    
+    
+  end
+  
 end
+
+# THIS WORKED
+# rows.search('.thead').each do |row|  
+#   row.remove
+# end
+
+# these don't work
+# rows_sort = rows.select { |row| row.css("tr.thead") }
+# rows_sort = rows.reject { |row| row.css("tr.thead") }
+
+# rows_sort = rows.search('.thead').each(&:remove)
+
+# rows_sort = rows.select { |row| row.search("thead") }   #works to create new of 
+# rows[23].at_css("td:nth-child(3)".try(:text))
+# rows[23].at_css("th").try(:text) yielded "Rk"
