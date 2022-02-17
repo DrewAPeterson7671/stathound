@@ -5,9 +5,9 @@ module ScraperHelper
   end
 
   def target_scrape(url)
-    browser = Watir::Browser.new(:chrome)
-    browser.goto(url)
-    doc = Nokogiri::HTML.parse(browser.html)
+    # browser = Watir::Browser.new(:chrome)
+    # browser.goto(url)
+    doc = Nokogiri::HTML.parse(URI.open(url))
   end
   
   def league_year_prefix(year, league = 'NBA')
@@ -36,11 +36,20 @@ module ScraperHelper
   end
 
   def gather_players_from_season
-    player_season_table = @doc_season.css("tbody") works on console!!
+    @name_list = []
+    player_season_table = @doc_season.css("tbody") # works on console!!
+    player_season_table.search('tr.thead').each(&:remove)
     rows = player_season_table.css("tr")
-    rows.search('.thead').each(&:remove)
+    puts "rows count " + rows.count.to_s
     puts rows[0].at_css("td").try(:text)
     puts rows[0].at_css("a").attributes["href"].try(:value)
+    rows.each do |r|
+      @name_list << r.at_css("td").try(:text)
+      @name_list << r.at_css("a").attributes["href"].try(:value)
+    end
+    @name_list = @name_list.uniq
+    puts @name_list.count
+    # trade duplicates included, need to filter out
   end
   
 end
