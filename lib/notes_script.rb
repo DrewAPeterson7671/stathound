@@ -44,7 +44,7 @@ doc.at_css("a:nth-child(3)").text
 ### Scraping Static Content ###
 
 
-endpoint = "http:www.basketball-reference.com/players/c/currst01/gamelog/2016/" 
+endpoint = "http://www.basketball-reference.com/players/c/currst01/gamelog/2016/" 
 
 URI.open(endpoint) 
 doc = Nokogiri::HTML.parse(URI.open(endpoint)) 
